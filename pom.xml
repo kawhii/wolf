@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.carl.wolf</groupId>
+    <artifactId>wolf-root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <description>
+        Carl Wolf 是一个高可用平台，分布式快速开发平台。
+    </description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <springboot.version>1.5.7.RELEASE</springboot.version>
+        <spring-cloud.version>Dalston.SR3</spring-cloud.version>
+    </properties>
+
+
+    <!--为了加快速度，修改成国内的代理-->
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <id>maven2-release</id>
+            <url>http://uk.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+                <!--快照版本库两个小时检查更新一遍-->
+                <updatePolicy>interval:120</updatePolicy>
+            </snapshots>
+            <id>oss-snapshots</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <id>maven2-release</id>
+            <url>http://uk.maven.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <organization>
+        <name>卡尔科技工作室</name>
+        <url>http://blog.csdn.net/u010475041</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Carl</name>
+            <email>huang.wenbin@foxmail.com</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <organization>卡尔科技工作室</organization>
+        </developer>
+    </developers>
+</project>
