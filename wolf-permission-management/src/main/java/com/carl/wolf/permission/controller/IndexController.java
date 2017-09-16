@@ -2,6 +2,10 @@
  * 版权所有.(c)2008-2017. 卡尔科技工作室
  */
 
+/*
+ * 版权所有.(c)2008-2017. 卡尔科技工作室
+ */
+
 package com.carl.wolf.permission.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;

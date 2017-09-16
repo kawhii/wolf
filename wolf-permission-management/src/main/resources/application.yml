@@ -15,8 +15,6 @@ spring:
     suffix: .html
   aop:
     proxy-target-class: true
-shiro:
-  loginUrl: /login.html # Suffix that gets appended to view names when building a URL.
 
 ---
 

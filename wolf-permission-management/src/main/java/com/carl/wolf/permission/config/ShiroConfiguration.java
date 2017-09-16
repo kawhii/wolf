@@ -5,6 +5,7 @@
 package com.carl.wolf.permission.config;
 
 import io.buji.pac4j.filter.CallbackFilter;
+import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;
 import io.buji.pac4j.realm.Pac4jRealm;
 import io.buji.pac4j.subject.Pac4jSubjectFactory;
@@ -29,9 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 对shiro的安全配置，是对cas的登录策略进行配置
+ *
  * @author Carl
  * @date 2017/9/16
- * @since
+ * @since 1.0.0
  */
 @Configuration
 public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
@@ -45,6 +48,10 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
         return new Pac4jRealm();
     }
 
+    /**
+     * cas核心过滤器
+     * @return
+     */
     @Bean
     public Filter casSecurityFilter() {
         SecurityFilter filter = new SecurityFilter();
@@ -76,31 +83,58 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
         return casClient;
     }
 
+
+    /**
+     * 路径过滤设置
+     * @return
+     */
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
        definition.addPathDefinition( "/user/**","casSecurityFilter");
         definition.addPathDefinition( "/callback", "callbackFilter");
+        definition.addPathDefinition( "/logout", "logoutFilter");
         definition.addPathDefinition("/**", "anon");
         return definition;
     }
 
+
+    /**
+     * 由于cas代理了用户，所以必须通过cas进行创建对象
+     * @return
+     */
     @Bean
     protected SubjectFactory subjectFactory() {
         return new Pac4jSubjectFactory();
     }
 
+    /**
+     * 对过滤器进行调整
+     * @param securityManager
+     * @return
+     */
     @Bean
     protected ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+         //把subject对象设为subjectFactory
         ((DefaultSecurityManager)securityManager).setSubjectFactory(subjectFactory());
         ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
+
+        filterFactoryBean.setFilters(filters());
+        return filterFactoryBean;
+    }
+
+    @Bean
+    protected  Map<String, Filter> filters() {
+        //过滤器设置
         Map<String, Filter> filters = new HashMap<>();
         filters.put("casSecurityFilter", casSecurityFilter());
         CallbackFilter callbackFilter = new CallbackFilter();
         callbackFilter.setConfig(casConfig());
         filters.put("callbackFilter", callbackFilter);
-        filterFactoryBean.setFilters(filters);
-        return filterFactoryBean;
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setConfig(casConfig());
+        filters.put("logoutFilter", logoutFilter);
+        return filters;
     }
 }
