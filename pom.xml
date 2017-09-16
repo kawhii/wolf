@@ -38,6 +38,11 @@
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.pac4j</groupId>
+                <artifactId>pac4j-cas</artifactId>
+                <version>${pac4j.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -54,6 +59,8 @@
         <springboot.version>1.5.7.RELEASE</springboot.version>
         <spring-cloud.version>Dalston.SR3</spring-cloud.version>
         <shiro.version>1.4.0</shiro.version>
+        <buji.version>3.0.0</buji.version>
+        <pac4j.version>2.1.0</pac4j.version>
     </properties>
 
 

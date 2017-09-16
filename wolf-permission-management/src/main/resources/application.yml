@@ -13,6 +13,8 @@ spring:
     mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
     prefix: classpath:/templates/ # Prefix that gets prepended to view names when building a URL.
     suffix: .html
+  aop:
+    proxy-target-class: true
 shiro:
   loginUrl: /login.html # Suffix that gets appended to view names when building a URL.
 
@@ -20,9 +22,10 @@ shiro:
 
 spring:
   profiles: dev
-
+cas:
+  loginUrl: https://passport.sso.com:8443/cas/login
+  callbackUrl: http://localhost:${server.port}/callback
 debug: true
 server:
   port: 8082
-
 ---

@@ -39,7 +39,11 @@
         <dependency>
             <groupId>io.buji</groupId>
             <artifactId>buji-pac4j</artifactId>
-            <version>3.0.0</version>
+            <version>${buji.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>pac4j-cas</artifactId>
         </dependency>
     </dependencies>
 
