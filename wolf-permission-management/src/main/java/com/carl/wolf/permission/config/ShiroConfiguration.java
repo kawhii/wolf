@@ -61,11 +61,16 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
     @Bean
-    protected Config casConfig() {
-        Config config = new Config();
+    protected Clients clients() {
         Clients clients = new Clients();
         clients.setClients(casClient());
-        config.setClients(clients);
+        return clients;
+    }
+
+    @Bean
+    protected Config casConfig() {
+        Config config = new Config();
+        config.setClients(clients());
         return config;
     }
 
