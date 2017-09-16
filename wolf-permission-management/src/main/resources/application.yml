@@ -1,3 +1,28 @@
 spring:
+  application:
+    name: permission-management
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: true # Enable template caching.
+    check-template: true # Check that the template exists before rendering it.
+    check-template-location: true # Check that the templates location exists.
+    content-type: text/html # Content-Type value.
+    enabled: true # Enable MVC Thymeleaf view resolution.
+    encoding: UTF-8 # Template encoding.
+    mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+    prefix: classpath:/templates/ # Prefix that gets prepended to view names when building a URL.
+    suffix: .html
+shiro:
+  loginUrl: /login.html # Suffix that gets appended to view names when building a URL.
+
+---
+
+spring:
   profiles: dev
+
 debug: true
+server:
+  port: 8082
+
+---

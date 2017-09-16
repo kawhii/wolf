@@ -6,6 +6,7 @@ package com.carl.wolf.permission;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @author Carl
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.0.0
  */
 @SpringBootApplication
+@EnableWebMvc
 public class PermissionManagementApplication {
     public static void main(String[] args) {
         SpringApplication.run(PermissionManagementApplication.class, args);
