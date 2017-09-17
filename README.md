@@ -6,10 +6,10 @@
 
 |框架|版本|备注|
 |:---|:---|:---|
-|spring boot|1.5.7.RELEASE|
-|spring cloud|Dalston.SR3|
-|shiro|1.4.0|
-|pac4j|2.1.0|
+|Spring Boot|1.5.7.RELEASE|
+|Spring Cloud|Dalston.SR3|
+|Shiro|1.4.0|
+|Pac4j|2.1.0|
 
 # 规划
 
