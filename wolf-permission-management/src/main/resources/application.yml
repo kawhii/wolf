@@ -21,8 +21,11 @@ spring:
 spring:
   profiles: dev
 cas:
-  loginUrl: https://passport.sso.com:8443/cas/login
+  prefixUrl: https://passport.sso.com:8443/cas
+  loginUrl: ${cas.prefixUrl}/login
   callbackUrl: http://localhost:${server.port}/callback
+jwt:
+  salt: 12345678901234567890123456789012
 debug: true
 server:
   port: 8082
