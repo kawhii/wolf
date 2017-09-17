@@ -5,7 +5,7 @@
 ## 软件版本
 
 |框架|版本|备注|
-|:---:|:---:|:---:|
+|:---|:---|:---|
 |spring boot|1.5.7.RELEASE|
 |spring cloud|Dalston.SR3|
 |shiro|1.4.0|
