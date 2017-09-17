@@ -23,7 +23,8 @@ spring:
 cas:
   prefixUrl: https://passport.sso.com:8443/cas
   loginUrl: ${cas.prefixUrl}/login
-  callbackUrl: http://localhost:${server.port}/callback
+  serviceUrl: http://localhost:${server.port}
+  callbackUrl: ${cas.serviceUrl}/callback
 jwt:
   salt: 12345678901234567890123456789012
 debug: true

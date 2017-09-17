@@ -52,6 +52,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     @Value("#{ @environment['cas.callbackUrl'] ?: null }")
     private String callbackUrl;
 
+    //jwt秘钥
     @Value("${jwt.salt}")
     private String salt;
 
@@ -61,41 +62,60 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
     /**
-     * cas核心过滤器
+     * cas核心过滤器，把支持的client写上，filter过滤时才会处理，clients必须在casConfig.clients已经注册
      *
      * @return
      */
     @Bean
     public Filter casSecurityFilter() {
         SecurityFilter filter = new SecurityFilter();
-        filter.setClients("CasClient,form,jwt");
+        filter.setClients("CasClient,rest,jwt");
         filter.setConfig(casConfig());
         return filter;
     }
 
+
+    /**
+     * JWT Token 生成器，对CommonProfile生成然后每次携带token访问
+     * @return
+     */
     @Bean
     protected JwtGenerator jwtGenerator() {
-//        JwtGenerator jwtGenerator = new JwtGenerator();
-//        jwtAuthenticator.setEncryptionConfigurations(jwtAuthenticator.getEncryptionConfigurations());
-//        jwtAuthenticator.setSignatureConfigurations(jwtAuthenticator.getSignatureConfigurations());
-//        return jwtGenerator;
         return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
+    }
+
+
+    /**
+     * 通过rest接口可以获取tgt，获取service ticket，甚至可以获取CasProfile
+     * @return
+     */
+    @Bean
+    protected CasRestFormClient casRestFormClient() {
+        CasRestFormClient casRestFormClient = new CasRestFormClient();
+        casRestFormClient.setConfiguration(casConfiguration());
+        casRestFormClient.setName("rest");
+        return casRestFormClient;
     }
 
 
     @Bean
     protected Clients clients() {
+        //可以设置默认client
         Clients clients = new Clients();
-        CasRestFormClient casRestFormClient = new CasRestFormClient();
-        casRestFormClient.setConfiguration(casConfiguration());
-        casRestFormClient.setName("form");
+
+        //token校验器，可以用HeaderClient更安全
         ParameterClient parameterClient = new ParameterClient("token", jwtAuthenticator());
         parameterClient.setSupportGetRequest(true);
         parameterClient.setName("jwt");
-        clients.setClients(casClient(), casRestFormClient, parameterClient);
+        //支持的client全部设置进去
+        clients.setClients(casClient(), casRestFormClient(), parameterClient);
         return clients;
     }
 
+    /**
+     * JWT校验器，也就是目前设置的ParameterClient进行的校验器，是rest/或者前后端分离的核心校验器
+     * @return
+     */
     @Bean
     protected JwtAuthenticator jwtAuthenticator() {
         JwtAuthenticator jwtAuthenticator = new JwtAuthenticator();
@@ -111,6 +131,10 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
         return config;
     }
 
+    /**
+     * cas的基本设置，包括或迪奥url等等，rest调用协议等
+     * @return
+     */
     @Bean
     public CasConfiguration casConfiguration() {
         CasConfiguration casConfiguration = new CasConfiguration(casLoginUrl);
@@ -171,6 +195,11 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
         return filterFactoryBean;
     }
 
+
+    /**
+     * 对shiro的过滤策略进行明确
+     * @return
+     */
     @Bean
     protected Map<String, Filter> filters() {
         //过滤器设置
