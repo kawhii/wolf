@@ -4,8 +4,6 @@
 
 package com.carl.wolf.permission.config;
 
-import com.nimbusds.jose.EncryptionMethod;
-import com.nimbusds.jose.JWEAlgorithm;
 import io.buji.pac4j.filter.CallbackFilter;
 import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;
@@ -26,9 +24,7 @@ import org.pac4j.cas.config.CasProtocol;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
 import org.pac4j.http.client.direct.ParameterClient;
-import org.pac4j.jwt.config.encryption.ECEncryptionConfiguration;
 import org.pac4j.jwt.config.encryption.SecretEncryptionConfiguration;
-import org.pac4j.jwt.config.signature.RSASignatureConfiguration;
 import org.pac4j.jwt.config.signature.SecretSignatureConfiguration;
 import org.pac4j.jwt.credentials.authenticator.JwtAuthenticator;
 import org.pac4j.jwt.profile.JwtGenerator;
@@ -37,8 +33,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +62,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
 
     /**
      * cas核心过滤器
+     *
      * @return
      */
     @Bean
@@ -79,15 +74,13 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
     @Bean
-    protected JwtGenerator jwtGenerator(JwtAuthenticator jwtAuthenticator) {
-        JwtGenerator jwtGenerator = new JwtGenerator();
-        jwtAuthenticator.setEncryptionConfigurations(jwtAuthenticator.getEncryptionConfigurations());
-        jwtAuthenticator.setSignatureConfigurations(jwtAuthenticator.getSignatureConfigurations());
-        return jwtGenerator;
-//        return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
+    protected JwtGenerator jwtGenerator() {
+//        JwtGenerator jwtGenerator = new JwtGenerator();
+//        jwtAuthenticator.setEncryptionConfigurations(jwtAuthenticator.getEncryptionConfigurations());
+//        jwtAuthenticator.setSignatureConfigurations(jwtAuthenticator.getSignatureConfigurations());
+//        return jwtGenerator;
+        return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
     }
-
-
 
 
     @Bean
@@ -106,22 +99,8 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     @Bean
     protected JwtAuthenticator jwtAuthenticator() {
         JwtAuthenticator jwtAuthenticator = new JwtAuthenticator();
-        try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            KeyPair rsaKeyPair = keyGen.generateKeyPair();
-            jwtAuthenticator.addSignatureConfiguration(new SecretSignatureConfiguration(salt));
-//            jwtAuthenticator.addSignatureConfiguration(new RSASignatureConfiguration(rsaKeyPair));
-
-            keyGen = KeyPairGenerator.getInstance("EC");
-            KeyPair ecKeyPair = keyGen.generateKeyPair();
-            ECEncryptionConfiguration encConfig = new ECEncryptionConfiguration(ecKeyPair);
-            encConfig.setAlgorithm(JWEAlgorithm.ECDH_ES_A128KW);
-            encConfig.setMethod(EncryptionMethod.A192CBC_HS384);
-            jwtAuthenticator.addEncryptionConfiguration(new SecretEncryptionConfiguration(salt));
-//            jwtAuthenticator.addEncryptionConfiguration(encConfig);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        jwtAuthenticator.addSignatureConfiguration(new SecretSignatureConfiguration(salt));
+        jwtAuthenticator.addEncryptionConfiguration(new SecretEncryptionConfiguration(salt));
         return jwtAuthenticator;
     }
 
@@ -151,14 +130,15 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
 
     /**
      * 路径过滤设置
+     *
      * @return
      */
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
-       definition.addPathDefinition( "/user/**","casSecurityFilter");
-        definition.addPathDefinition( "/callback", "callbackFilter");
-        definition.addPathDefinition( "/logout", "logoutFilter");
+        definition.addPathDefinition("/user/**", "casSecurityFilter");
+        definition.addPathDefinition("/callback", "callbackFilter");
+        definition.addPathDefinition("/logout", "logoutFilter");
         definition.addPathDefinition("/**", "anon");
         return definition;
     }
@@ -166,6 +146,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
 
     /**
      * 由于cas代理了用户，所以必须通过cas进行创建对象
+     *
      * @return
      */
     @Bean
@@ -175,13 +156,14 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
 
     /**
      * 对过滤器进行调整
+     *
      * @param securityManager
      * @return
      */
     @Bean
     protected ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-         //把subject对象设为subjectFactory
-        ((DefaultSecurityManager)securityManager).setSubjectFactory(subjectFactory());
+        //把subject对象设为subjectFactory
+        ((DefaultSecurityManager) securityManager).setSubjectFactory(subjectFactory());
         ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
 
@@ -190,7 +172,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
     @Bean
-    protected  Map<String, Filter> filters() {
+    protected Map<String, Filter> filters() {
         //过滤器设置
         Map<String, Filter> filters = new HashMap<>();
         filters.put("casSecurityFilter", casSecurityFilter());
