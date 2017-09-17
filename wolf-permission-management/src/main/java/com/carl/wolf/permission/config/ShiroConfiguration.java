@@ -132,7 +132,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
     /**
-     * cas的基本设置，包括或迪奥url等等，rest调用协议等
+     * cas的基本设置，包括或url等等，rest调用协议等
      * @return
      */
     @Bean
@@ -160,10 +160,9 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
-        definition.addPathDefinition("/user/**", "casSecurityFilter");
         definition.addPathDefinition("/callback", "callbackFilter");
         definition.addPathDefinition("/logout", "logoutFilter");
-        definition.addPathDefinition("/**", "anon");
+        definition.addPathDefinition("/**", "casSecurityFilter");
         return definition;
     }
 
