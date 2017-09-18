@@ -19,6 +19,6 @@ http://localhost:8082/user/detail?client_name=jwt&token=eyJjdHkiOiJKV1QiLCJlbmMi
 ```
 返回
 
-``text
+```text
 users:admin
-``
+```
