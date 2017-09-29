@@ -60,7 +60,7 @@ public class DefaultModuleScanStrategy implements IModuleScanStrategy {
                 .setTarget(bean)
                 .setMenus(menus);
 
-        logger.info(JSONUtil.toJSonStr(moduleVo));
+        logger.debug(JSONUtil.toJSonStr(moduleVo));
         return moduleVo;
     }
 
