@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/laomazi2006/wolf.svg?branch=master)](https://travis-ci.org/laomazi2006/wolf)
+
 **wolf是一个分布式快速开发平台。配置中心、权限管理系统、单点登录，作业系统、监控平台集中式处理方案**
 
 # 架构
