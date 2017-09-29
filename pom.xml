@@ -6,6 +6,7 @@
     <modules>
         <module>wolf-permission-management</module>
         <module>wolf-core</module>
+        <module>wolf-ui</module>
     </modules>
 
     <parent>
@@ -91,6 +92,8 @@
         <shiro.version>1.4.0</shiro.version>
         <buji.version>3.0.0</buji.version>
         <pac4j.version>2.1.0</pac4j.version>
+        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
     </properties>
 
 
