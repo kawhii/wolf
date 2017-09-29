@@ -4,6 +4,8 @@
 
 package com.carl.wolf.core.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.lang.reflect.Method;
 
 /**
@@ -20,7 +22,8 @@ public class Menu {
     private String icon;
     private int order;
     //注解菜单对象
-    private Method target;
+    @JsonIgnore
+    private Object target;
 
     public String getId() {
         return id;
@@ -67,11 +70,11 @@ public class Menu {
         return this;
     }
 
-    public Method getTarget() {
+    public Object getTarget() {
         return target;
     }
 
-    public Menu setTarget(Method target) {
+    public Object setTarget(Object target) {
         this.target = target;
         return this;
     }

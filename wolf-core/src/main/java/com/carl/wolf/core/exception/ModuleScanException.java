@@ -11,24 +11,24 @@ package com.carl.wolf.core.exception;
  * @date 2017/9/16
  * @since 1.0.0
  */
-public class ModuleScanException extends CoreException {
-
-    public ModuleScanException() {
+public class ModuleScanException extends ScanException {
+    public ModuleScanException(Object target) {
+        super(target);
     }
 
-    public ModuleScanException(String message) {
-        super(message);
+    public ModuleScanException(String message, Object target) {
+        super(message, target);
     }
 
-    public ModuleScanException(String message, Throwable cause) {
-        super(message, cause);
+    public ModuleScanException(String message, Throwable cause, Object target) {
+        super(message, cause, target);
     }
 
-    public ModuleScanException(Throwable cause) {
-        super(cause);
+    public ModuleScanException(Throwable cause, Object target) {
+        super(cause, target);
     }
 
-    public ModuleScanException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public ModuleScanException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object target) {
+        super(message, cause, enableSuppression, writableStackTrace, target);
     }
 }

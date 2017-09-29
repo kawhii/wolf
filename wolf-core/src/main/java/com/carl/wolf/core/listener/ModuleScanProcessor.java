@@ -41,7 +41,9 @@ public class ModuleScanProcessor implements ApplicationListener<ContextRefreshed
         for (Object value : beans.values()) {
             try {
                 //处理获取模块并且添加到容器
-                modules.add(scanStrategy.process(value));
+                if (scanStrategy.support(value)) {
+                    modules.add(scanStrategy.process(value));
+                }
             } catch (ModuleScanException e) {
                 logger.error("模块扫描异常", e);
             }

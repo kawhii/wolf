@@ -5,6 +5,8 @@
 
 package com.carl.wolf.core.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public class Module {
     private int order;
     private boolean open;
     //注解模块对象
+    @JsonIgnore
     private Object target;
 
     //所有菜单

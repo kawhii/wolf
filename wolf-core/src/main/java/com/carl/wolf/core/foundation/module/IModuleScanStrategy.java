@@ -16,13 +16,19 @@ import com.carl.wolf.core.exception.ModuleScanException;
  * @date 2017/9/16
  * @since 1.0.0
  */
-public interface IModuleScanStrategy {
+public interface IModuleScanStrategy extends IScanStrategy<Module> {
     /**
      * 在对象中抽离出模块对象
      *
      * @param bean 被注解的对象
-     *
      * @return
      */
     Module process(Object bean) throws ModuleScanException;
+
+    /**
+     * 菜单扫描策略
+     *
+     * @return
+     */
+    IMenuScanStrategy getMenuScanStrategy();
 }
