@@ -4,6 +4,8 @@
 
 package com.carl.wolf.core.config;
 
+import com.carl.wolf.core.foundation.module.DefaultModuleScanStrategy;
+import com.carl.wolf.core.foundation.module.IModuleScanStrategy;
 import com.carl.wolf.core.listener.ModuleScanProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,5 +22,10 @@ public class ProcessorConfiguration {
     @Bean
     protected ModuleScanProcessor moduleScan() {
         return new ModuleScanProcessor();
+    }
+
+    @Bean
+    protected IModuleScanStrategy scanStrategy() {
+        return new DefaultModuleScanStrategy();
     }
 }

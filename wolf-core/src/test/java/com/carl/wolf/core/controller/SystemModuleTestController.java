@@ -2,6 +2,10 @@
  * 版权所有.(c)2008-2017. 卡尔科技工作室
  */
 
+/*
+ * 版权所有.(c)2008-2017. 卡尔科技工作室
+ */
+
 package com.carl.wolf.core.controller;
 
 import com.carl.wolf.core.annotation.Menu;
@@ -16,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Module(name = "系统管理", order = 1, description = "核心功能")
-@Deprecated
-public class SystemModuleController {
+public class SystemModuleTestController {
 
     @RequestMapping("sys/userMgt.html")
     @Menu(path = "sys/userMgt.html", title = "用户管理", icon = "userMgt.jpg")
