@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>wolf-permission-management</module>
+        <module>wolf-core</module>
     </modules>
 
     <parent>
@@ -23,6 +24,14 @@
     <description>
         Carl Wolf 是一个高可用平台，分布式快速开发平台。
     </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
