@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 1.0.0
  */
 @Controller
-@Module(name = "系统管理", order = 1, description = "核心功能")
+@Module(name = "系统管理", order = 1, description = "核心功能", pros = ModuleConfig.class)
 public class SystemModuleTestController {
 
     @RequestMapping("sys/userMgt.html")
@@ -29,7 +29,7 @@ public class SystemModuleTestController {
     }
 
     @RequestMapping("sys/roleMgt.html")
-    @Menu(path = "sys/routeMgt.html", title = "角色管理", icon = "roleMgt.jpg")
+    @Menu(path = "sys/routeMgt.html", title = "角色管理", icon = "roleMgt.jpg" , pros = MenuConfig.class)
     public String roleManagement() {
         return "system/roleManagement";
     }

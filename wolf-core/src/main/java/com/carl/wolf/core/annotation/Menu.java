@@ -4,6 +4,7 @@
 
 package com.carl.wolf.core.annotation;
 
+import java.io.Serializable;
 import java.lang.annotation.*;
 
 /**
@@ -42,4 +43,11 @@ public @interface Menu {
      * @return
      */
     int order() default 0;
+
+    /**
+     * 其他属性
+     *
+     * @return
+     */
+    Class<? extends Serializable>[] pros() default {};
 }

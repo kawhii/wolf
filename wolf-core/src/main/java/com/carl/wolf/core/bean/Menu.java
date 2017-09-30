@@ -7,6 +7,7 @@ package com.carl.wolf.core.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * 菜单数据
@@ -24,6 +25,8 @@ public class Menu {
     //注解菜单对象
     @JsonIgnore
     private Object target;
+
+    private Map<String, Object> pros;
 
     public String getId() {
         return id;
@@ -74,8 +77,17 @@ public class Menu {
         return target;
     }
 
-    public Object setTarget(Object target) {
+    public Menu setTarget(Object target) {
         this.target = target;
+        return this;
+    }
+
+    public Map<String, Object> getPros() {
+        return pros;
+    }
+
+    public Menu setPros(Map<String, Object> pros) {
+        this.pros = pros;
         return this;
     }
 }

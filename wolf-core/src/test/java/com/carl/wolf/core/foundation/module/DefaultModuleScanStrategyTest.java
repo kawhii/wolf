@@ -23,6 +23,7 @@ public class DefaultModuleScanStrategyTest {
         DefaultModuleScanStrategy scanStrategy = new DefaultModuleScanStrategy();
         Module module = scanStrategy.process(controller);
         Assert.assertEquals(2, module.getMenus().size());
+        Assert.assertEquals(1, module.getPros().get("age"));
         Assert.assertEquals("系统管理", module.getName());
     }
 

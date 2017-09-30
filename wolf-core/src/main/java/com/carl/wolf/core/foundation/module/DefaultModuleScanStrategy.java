@@ -5,7 +5,7 @@
 
 package com.carl.wolf.core.foundation.module;
 
-import com.carl.wolf.core.JSONUtil;
+import com.carl.wolf.core.util.JSONUtil;
 import com.carl.wolf.core.annotation.Menu;
 import com.carl.wolf.core.annotation.Module;
 import com.carl.wolf.core.exception.ModuleScanException;
@@ -14,7 +14,9 @@ import org.apache.commons.logging.LogFactory;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 默认模块扫描策略
@@ -53,15 +55,37 @@ public class DefaultModuleScanStrategy implements IModuleScanStrategy {
             }
         }
 
+
+
         moduleVo.setDescription(module.description())
                 .setName(module.name())
                 .setOrder(module.order())
                 .setOpen(module.open())
                 .setTarget(bean)
-                .setMenus(menus);
+                .setMenus(menus)
+                .setIcon(module.icon())
+                .setPros(propertiesResolve(module.pros()));
 
-        logger.debug(JSONUtil.toJSonStr(moduleVo));
+
+        logger.debug(JSONUtil.toJSONStr(moduleVo));
         return moduleVo;
+    }
+
+    /**
+     * 根据class反射获取对象放到map
+     * @param clz
+     * @return
+     */
+    private Map<String, Object> propertiesResolve(Class[] clz) {
+        Map<String, Object> pros = new HashMap<>();
+        for(Class c : clz) {
+            try {
+                pros.putAll(JSONUtil.class2Map(c));
+            } catch (Exception e) {
+                logger.error("", e);
+            }
+        }
+        return pros;
     }
 
     @Override

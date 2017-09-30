@@ -8,6 +8,7 @@ package com.carl.wolf.core.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 模块数据对象
@@ -25,6 +26,10 @@ public class Module {
     //注解模块对象
     @JsonIgnore
     private Object target;
+
+    private String icon;
+
+    private Map<String, Object> pros;
 
     //所有菜单
     private List<Menu> menus;
@@ -89,6 +94,24 @@ public class Module {
 
     public Module setTarget(Object target) {
         this.target = target;
+        return this;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public Module setIcon(String icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    public Map<String, Object> getPros() {
+        return pros;
+    }
+
+    public Module setPros(Map<String, Object> pros) {
+        this.pros = pros;
         return this;
     }
 }

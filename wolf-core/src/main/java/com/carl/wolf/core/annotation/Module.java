@@ -4,6 +4,7 @@
 
 package com.carl.wolf.core.annotation;
 
+import java.io.Serializable;
 import java.lang.annotation.*;
 
 /**
@@ -44,4 +45,18 @@ public @interface Module {
      * @return
      */
     boolean open() default false;
+
+    /**
+     * 图标
+     *
+     * @return
+     */
+    String icon() default "";
+
+    /**
+     * 其他属性
+     *
+     * @return
+     */
+    Class<? extends Serializable>[] pros() default {};
 }
