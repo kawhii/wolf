@@ -6,7 +6,6 @@
 package com.carl.wolf.core.foundation.module;
 
 import com.carl.wolf.core.bean.Module;
-import com.carl.wolf.core.exception.ModuleScanException;
 
 
 /**
@@ -17,13 +16,6 @@ import com.carl.wolf.core.exception.ModuleScanException;
  * @since 1.0.0
  */
 public interface IModuleScanStrategy extends IScanStrategy<Module> {
-    /**
-     * 在对象中抽离出模块对象
-     *
-     * @param bean 被注解的对象
-     * @return
-     */
-    Module process(Object bean) throws ModuleScanException;
 
     /**
      * 菜单扫描策略

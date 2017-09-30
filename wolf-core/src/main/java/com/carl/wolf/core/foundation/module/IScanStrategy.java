@@ -4,10 +4,8 @@
 
 package com.carl.wolf.core.foundation.module;
 
-import com.carl.wolf.core.bean.Menu;
 import com.carl.wolf.core.exception.ScanException;
 
-import java.lang.reflect.Method;
 
 /**
  * 菜单扫描
