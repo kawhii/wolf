@@ -7,6 +7,7 @@ package com.carl.wolf.core.config;
 import com.carl.wolf.core.foundation.module.DefaultModuleScanStrategy;
 import com.carl.wolf.core.foundation.module.IModuleScanStrategy;
 import com.carl.wolf.core.listener.ModuleScanProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,12 +21,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProcessorConfiguration {
     @Bean
-    protected ModuleScanProcessor moduleScan() {
+    @ConditionalOnMissingBean(name = "moduleScanProcessor")
+    protected ModuleScanProcessor moduleScanProcessor() {
         return new ModuleScanProcessor();
     }
 
     @Bean
-    protected IModuleScanStrategy scanStrategy() {
+    @ConditionalOnMissingBean(IModuleScanStrategy.class)
+    protected IModuleScanStrategy moduleScanStrategy() {
         return new DefaultModuleScanStrategy();
     }
 }
