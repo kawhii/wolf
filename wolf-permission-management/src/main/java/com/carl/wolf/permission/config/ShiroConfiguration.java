@@ -9,12 +9,9 @@ import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;
 import io.buji.pac4j.realm.Pac4jRealm;
 import io.buji.pac4j.subject.Pac4jSubjectFactory;
-import org.apache.shiro.mgt.DefaultSecurityManager;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.mgt.SubjectFactory;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.spring.web.config.AbstractShiroWebFilterConfiguration;
+import org.apache.shiro.spring.web.config.AbstractShiroWebConfiguration;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.pac4j.cas.client.CasClient;
@@ -44,7 +41,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Configuration
-public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
+public class ShiroConfiguration extends AbstractShiroWebConfiguration {
     @Value("#{ @environment['cas.prefixUrl'] ?: null }")
     private String prefixUrl;
     @Value("#{ @environment['cas.loginUrl'] ?: null }")
@@ -167,6 +164,7 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
     }
 
 
+
     /**
      * 由于cas代理了用户，所以必须通过cas进行创建对象
      *
@@ -177,22 +175,8 @@ public class ShiroConfiguration extends AbstractShiroWebFilterConfiguration {
         return new Pac4jSubjectFactory();
     }
 
-    /**
-     * 对过滤器进行调整
-     *
-     * @param securityManager
-     * @return
-     */
-    @Bean
-    protected ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        //把subject对象设为subjectFactory
-        ((DefaultSecurityManager) securityManager).setSubjectFactory(subjectFactory());
-        ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
-        filterFactoryBean.setSecurityManager(securityManager);
 
-        filterFactoryBean.setFilters(filters());
-        return filterFactoryBean;
-    }
+
 
 
     /**
