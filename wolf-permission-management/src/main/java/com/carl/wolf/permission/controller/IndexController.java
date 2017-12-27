@@ -8,6 +8,7 @@
 
 package com.carl.wolf.permission.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.pac4j.cas.client.rest.CasRestFormClient;
 import org.pac4j.cas.profile.CasProfile;
 import org.pac4j.cas.profile.CasRestProfile;
@@ -52,6 +53,7 @@ public class IndexController {
     }
 
     @GetMapping("/user/{id}")
+    @RequiresRoles("aRoleName")
     public Object user(@PathVariable(value = "id") String id) {
         return "users page:" + id;
     }
